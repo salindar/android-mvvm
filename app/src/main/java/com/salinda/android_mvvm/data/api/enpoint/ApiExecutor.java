@@ -9,6 +9,8 @@ import com.salinda.android_mvvm.data.model.SampleModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 
 /**
@@ -36,19 +38,23 @@ public class ApiExecutor {
         REQUEST_A_CALL_BACK,
     }
 
-    private RetrofitModule<API> retrofitModule;
-    private API api;
+    @Inject
+     RetrofitModule<API> retrofitModule;
+    @Inject
+    public APIResponseCallBack<List<SampleModel>> sampleModelAPIResponseCallBack;
 
+    @Inject
     public ApiExecutor() {
-        retrofitModule = new RetrofitModule();
-        Bundle bundle = new Bundle();
-        bundle.putString("Content-Type", "application/json");
-        api = retrofitModule.getRestClient(API.class, null, bundle);
+      //  retrofitModule = new RetrofitModule();
+
     }
 
     public void executeSampleApiRequest(){
+        Bundle bundle = new Bundle();
+        bundle.putString("Content-Type", "application/json");
+        API api = retrofitModule.getRestClient(API.class, null, bundle);
         Call<List<SampleModel>> call = api.getUsers();
-                    APIResponseCallBack<List<SampleModel>> sampleModelAPIResponseCallBack = new APIResponseCallBack<>();
+                   // APIResponseCallBack<List<SampleModel>> sampleModelAPIResponseCallBack = new APIResponseCallBack<>();
                     call.enqueue(sampleModelAPIResponseCallBack);
     }
 

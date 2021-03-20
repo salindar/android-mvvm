@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.salinda.android_mvvm.R;
+import com.salinda.android_mvvm.presentation.App;
 import com.salinda.android_mvvm.presentation.fragment.MainFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,14 +14,27 @@ import android.view.ViewGroup;
 
 import com.salinda.android_mvvm.R;
 import com.salinda.android_mvvm.data.api.enpoint.ApiExecutor;
-import com.salinda.android_mvvm.domain.MainViewModel;
+import com.salinda.android_mvvm.domain.BaseViewModel;
+import com.salinda.android_mvvm.presentation.App;
+
+import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Inject;
 
 public class MainFragment extends Fragment {
-
-    private MainViewModel mViewModel;
+    @Inject
+    public EventBus bus;
+    @Inject
+    public ApiExecutor apiExecutor;
+    private BaseViewModel mViewModel;
 
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -34,9 +47,12 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BaseViewModel.class);
+     //   mViewModel.initializeDependencyTree();
+        mViewModel.getData();
         // TODO: Use the ViewModel
-        new ApiExecutor().executeSampleApiRequest();
+        //apiExecutor.executeSampleApiRequest();
+       /// new ApiExecutor().executeSampleApiRequest();
     }
 
 }

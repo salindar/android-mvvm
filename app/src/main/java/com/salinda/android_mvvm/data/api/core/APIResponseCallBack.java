@@ -1,8 +1,11 @@
 package com.salinda.android_mvvm.data.api.core;
 
+import com.salinda.android_mvvm.data.model.BaseModel;
 import com.salinda.android_mvvm.data.model.RetrofitResponseWrapper;
 
 import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,8 +17,12 @@ import retrofit2.Response;
  */
 //TODO add class level javadoc
 public class APIResponseCallBack<T> implements Callback<T> {
+    /**
+     * Dagger does not support injection into private fields
+     */
+    @Inject
+    public EventBus bus;
 
-    private EventBus bus;
     private int requestCode = 0;
 
 
@@ -26,14 +33,14 @@ public class APIResponseCallBack<T> implements Callback<T> {
         this.requestCode = requestCode;
     }
 
+    @Inject
     public <T> APIResponseCallBack(){
-      //  this.bus = BaseApp.getBusInstance();
     }
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
-     //    bus.post(new RetrofitResponseWrapper<T>(response, requestCode));
+            bus.post(new RetrofitResponseWrapper<T>(response, requestCode));
         } else {
             RetrofitErrorWrapper retrofitErrorWrapper = new RetrofitErrorWrapper(null);
             retrofitErrorWrapper.setRequestCode(requestCode);

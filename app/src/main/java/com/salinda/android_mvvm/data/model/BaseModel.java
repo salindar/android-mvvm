@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+
 /**
  * Created by Salinda Rathnayeka May 2021
  * salindakrishantha@gmail.com
@@ -38,7 +39,7 @@ public class BaseModel implements Parcelable {
         this.apiKey = in.readString();
     }
 
-    protected BaseModel() {
+    public BaseModel() {
     }
 
     @Override

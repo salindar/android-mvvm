@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,30 +18,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //TODO add class level javadoc
 public class RetrofitModule<T> {
 
-   // private String apiUrl= BuildConfig.BASE_URL;
-    private String apiUrl= "https://jsonplaceholder.typicode.com/";
+    // private String apiUrl= BuildConfig.BASE_URL;
+   // private String apiUrl = "https://jsonplaceholder.typicode.com/";
+//    @Inject
+//    @Named("BASE_URL")
+     String apiUrl;
 
-    public RetrofitModule(){
-
+    @Inject
+    public RetrofitModule( @Named("BASE_URL") String baseUrl) {
+        this.apiUrl = baseUrl;
     }
+
     private RequestInterceptor requestInterceptor;
 
     public T getRestClient(Class<T> t, Gson gson, Bundle bundle) {
-
-      //  CommonUtil.configDefinedProperlyOrThrowException(apiUrl,"API_URL");
-
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl(apiUrl);
-       // if (gson != null) {
-            builder.addConverterFactory(GsonConverterFactory.create());
-       // }
-
+        builder.addConverterFactory(GsonConverterFactory.create());
         /*
         Bundle available means there are some headers to be added to the request.
         This is only possible with adding interceptor to the OkHttpClient and add that
         OkHttpClient object to the Retrofit.Builder
          */
         if (bundle != null) {
-            if(requestInterceptor == null){
+            if (requestInterceptor == null) {
                 requestInterceptor = new RequestInterceptor();
             }
             requestInterceptor.setBundle(bundle);
