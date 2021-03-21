@@ -1,7 +1,7 @@
 package com.salinda.android_mvvm.data.api.core;
 
-import com.salinda.android_mvvm.data.model.BaseModel;
 import com.salinda.android_mvvm.data.model.RetrofitResponseWrapper;
+import com.salinda.android_mvvm.infrastructure.dto.busevent.NetworkOperationEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,11 +34,12 @@ public class APIResponseCallBack<T> implements Callback<T> {
     }
 
     @Inject
-    public <T> APIResponseCallBack(){
-    }
+    public <T> APIResponseCallBack(){}
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
+        bus.post(new NetworkOperationEvent(false));
+
         if (response.isSuccessful()) {
             bus.post(new RetrofitResponseWrapper<T>(response, requestCode));
         } else {
@@ -51,6 +52,8 @@ public class APIResponseCallBack<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
+        bus.post(new NetworkOperationEvent(false));
+
         RetrofitErrorWrapper retrofitErrorWrapper = new RetrofitErrorWrapper(t);
         retrofitErrorWrapper.setRequestCode(requestCode);
         retrofitErrorWrapper.setThrowable(t);

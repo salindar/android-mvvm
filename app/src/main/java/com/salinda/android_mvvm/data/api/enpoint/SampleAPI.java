@@ -14,14 +14,11 @@ import retrofit2.http.POST;
  * Define all the endpoints, data for the API and return types of the API.
  * All these models need to be GSON serialized class extended from BaseModel
  */
-public interface API {
+public interface SampleAPI {
     /**
      * Sample HTTP get call to placeholder API endpoint
      * @return
      */
     @GET("/users")
     Call<List<SampleModel>> getUsers();
-
-//    @POST("/apis/sign_up")
-//    Call<SimpleAPIResponse> createUser(@Body User userData);
 }

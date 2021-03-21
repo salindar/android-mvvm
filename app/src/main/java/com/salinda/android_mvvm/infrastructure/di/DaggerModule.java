@@ -1,9 +1,5 @@
 package com.salinda.android_mvvm.infrastructure.di;
-
-import com.salinda.android_mvvm.data.model.BaseModel;
-
 import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -31,7 +27,7 @@ public class DaggerModule {
     @Named("BASE_URL")
     static String provideBaseUrl() {
         /**
-         * TODO fetch this value from configs based on selected flavour
+         * TODO fetch this value from configs based on selected flavour and build type
          */
         return "https://jsonplaceholder.typicode.com/";
     }

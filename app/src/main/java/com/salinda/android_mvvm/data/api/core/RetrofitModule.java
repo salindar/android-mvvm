@@ -17,21 +17,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 //TODO add class level javadoc
 public class RetrofitModule<T> {
-
-    // private String apiUrl= BuildConfig.BASE_URL;
-   // private String apiUrl = "https://jsonplaceholder.typicode.com/";
-//    @Inject
-//    @Named("BASE_URL")
-     String apiUrl;
-
     @Inject
-    public RetrofitModule( @Named("BASE_URL") String baseUrl) {
-        this.apiUrl = baseUrl;
+    public RetrofitModule() {
+
     }
 
     private RequestInterceptor requestInterceptor;
 
-    public T getRestClient(Class<T> t, Gson gson, Bundle bundle) {
+    public T getRestClient(Class<T> t, Gson gson, Bundle bundle,String apiUrl) {
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl(apiUrl);
         builder.addConverterFactory(GsonConverterFactory.create());
         /*

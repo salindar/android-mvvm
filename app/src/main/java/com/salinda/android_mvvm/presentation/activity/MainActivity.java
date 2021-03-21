@@ -5,12 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.salinda.android_mvvm.R;
-import com.salinda.android_mvvm.presentation.App;
-import com.salinda.android_mvvm.presentation.fragment.MainFragment;
-
-import org.greenrobot.eventbus.EventBus;
-
-import javax.inject.Inject;
+import com.salinda.android_mvvm.presentation.fragment.BaseFragment;
+import com.salinda.android_mvvm.presentation.fragment.SampleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, SampleFragment.newInstance())
                     .commitNow();
         }
     }
